@@ -1,0 +1,44 @@
+﻿<Window x:Class="ProjectVisitorsRegistration.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectVisitorsRegistration"  xmlns:col="clr-namespace:System.Collections;assembly=mscorlib" xmlns:viewmodels="clr-namespace:ProjectVisitorsRegistration.Viewmodels" d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewmodel}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid >
+        <TabControl TabStripPlacement="Top" Margin="10">
+            <TabItem Header="BKJlagKa1">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <DataGrid SelectionUnit="FullRow" SelectedIndex="{Binding Path=selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="false" ItemsSource="{Binding Path =activevisitors}" Margin="10,10,225,65" CanUserDeleteRows="False" CanUserAddRows="False" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Path=name.Item}"/>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=sur.Item}"/>
+                            <DataGridTextColumn Header="Пришел" Binding="{Binding Path=datecame.Item}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Command="{Binding AddUser}" Content="Добавить пользователя" Margin="579,37,38,301"/>
+                    <Button Command="{Binding UserIsGone}" Content="Пользователь ушел" Margin="579,88,38,251" />
+                    <TextBlock Height="100" TextWrapping="Wrap" Text="{Binding Path=indexofselected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="594,159,72,112"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="BKJlagKa2">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="99*"/>
+                        <ColumnDefinition Width="667*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid AutoGenerateColumns="false" ItemsSource="{Binding gonevisitors}" Margin="10,10,225,65"  CanUserDeleteRows="False" CanUserAddRows="False" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Path=name.Item}"/>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=sur.Item}"/>
+                            <DataGridTextColumn Header="Пришел" Binding="{Binding Path=datecame.Item}"/>
+                            <DataGridTextColumn Header="Ушел" Binding="{Binding Path=dategone.Item}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Command="{Binding SaveToExcelGone}" Content="Сохранить в Excel" Grid.Column="1" Margin="484,169,55,169"></Button>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
